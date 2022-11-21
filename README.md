@@ -1,12 +1,10 @@
 # Container registry lab
-Lab for testing av container registry run tasks.
+Lab for testing Azure container registry tasks.
 
-## Azure DevOps - Personal Access Token (PAT)
-* Opprett PAT her: [Azure DevOps - Personal Access Tokens](https://dev.azure.com/NorskHelsenettUtvikling/_usersSettings/tokens)
-* Scopes på PAT: `Code.Read`, `Code.Status`
-* Legg inn PAT i `locals.git_access_token` som ligger i `main.tf`.
+## GitHub - Personal Access Token (PAT)
+Create your PAT here: [github.com/settings/tokens](https://github.com/settings/tokens)
 
-## Manuell
-For å kjøre en manuell build på container registry:
+## Manual
+To run a manual build with container registry task:
 
-`az acr build --resource-group <NAVN PÅ RESSURSGRUPPE> --registry <NAVN PÅ CONTAINER REGISTRY> --image <NAVN PÅ IMAGE:TAG> --file Dockerfile .`
+`az acr build --resource-group <RESOURCE GROUP NAME> --registry <CONTAINER REGISTRY NAME> --image <IMAGE:TAG> --file Dockerfile .`
