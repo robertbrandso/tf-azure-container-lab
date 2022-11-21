@@ -30,11 +30,6 @@ resource "random_string" "resource_names" {
 locals {
   location           = "norwayeast"
   image_name_and_tag = "lab:latest"
-
-  # Remember to put in your own PAT from Azure DevOps
-  # Define your PAT here: https://dev.azure.com/NorskHelsenettUtvikling/_usersSettings/tokens
-  # Scopes needed: Code.Read and Code.Status
-  git_access_token = ""
 }
 
 # ---------------
@@ -80,18 +75,18 @@ resource "azurerm_container_registry_task" "git" {
   source_trigger {
     name           = "gitcommit"
     events         = ["commit"]
-    repository_url = "https://github.com/robertbrandso/tf-azure-container-lab"
+    repository_url = "https://github.com/robertbrandso/tf-azure-container-lab#main"
     source_type    = "Github"
     branch         = "main"
     authentication {
       token_type = "PAT"
-      token      = local.git_access_token
+      token      = var.git_access_token
     }
   }
   docker_step {
     dockerfile_path      = "docker/cr-task-git/Dockerfile"
-    context_path         = "https://github.com/robertbrandso/tf-azure-container-lab"
-    context_access_token = local.git_access_token
+    context_path         = "https://github.com/robertbrandso/tf-azure-container-lab#main"
+    context_access_token = var.git_access_token
     image_names          = [local.image_name_and_tag]
   }
 
